@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { AlertCircle, Sparkles } from "lucide-react";
 import { ChatInput } from "@/components/ChatInput";
 import { ChatMessage } from "@/components/ChatMessage";
@@ -28,6 +28,7 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [audience, setAudience] = useState("general");
+  const latestMessageRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const savedChats = localStorage.getItem(STORAGE_KEY);
@@ -55,6 +56,13 @@ export default function Home() {
     () => chats.find((chat) => chat.id === activeChatId) || chats[0],
     [chats, activeChatId],
   );
+
+  useEffect(() => {
+    latestMessageRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  }, [activeChat?.messages.length]);
 
   function updateActiveChat(
     messages: ChatMessageType[],
@@ -188,7 +196,17 @@ export default function Home() {
               </div>
             ) : (
               activeChat?.messages.map((message, index) => (
-                <ChatMessage key={`${message.role}-${index}`} message={message} />
+                <div
+                  key={`${message.role}-${index}`}
+                  ref={
+                    index === activeChat.messages.length - 1
+                      ? latestMessageRef
+                      : undefined
+                  }
+                  className="scroll-mt-4"
+                >
+                  <ChatMessage message={message} />
+                </div>
               ))
             )}
 
