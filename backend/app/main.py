@@ -28,5 +28,11 @@ def root():
 
 app.include_router(health.router)
 app.include_router(chat.router)
-app.include_router(ingest.router)
 
+if settings.enable_ingest_endpoint:
+    if not settings.ingest_admin_token:
+        raise RuntimeError(
+            "INGEST_ADMIN_TOKEN must be configured when "
+            "ENABLE_INGEST_ENDPOINT is enabled."
+        )
+    app.include_router(ingest.router)
