@@ -11,6 +11,8 @@ import { sendChatMessage } from "@/lib/api";
 import type { ChatMessage as ChatMessageType, LocalChat } from "@/lib/types";
 
 const STORAGE_KEY = "uniben-compass-ai-chats";
+const INTRO_MESSAGE =
+  "Hello! I’m UNIBEN Compass AI, your University of Benin inquiry assistant. I can help with admissions, clearance, Post-UTME, postgraduate studies, school fees, student portals, accommodation, and other UNIBEN questions. What would you like to know?";
 
 function removeSourceAppendix(content: string): string {
   return content
@@ -26,7 +28,7 @@ function createChat(): LocalChat {
     id: crypto.randomUUID(),
     backendChatId: null,
     title: "New UNIBEN chat",
-    messages: [],
+    messages: [{ role: "assistant", content: INTRO_MESSAGE }],
   };
 }
 
@@ -44,8 +46,16 @@ export default function Home() {
     if (savedChats) {
       const parsedChats = JSON.parse(savedChats) as LocalChat[];
       if (parsedChats.length > 0) {
-        setChats(parsedChats);
-        setActiveChatId(parsedChats[0].id);
+        const chatsWithIntroductions = parsedChats.map((chat) =>
+          chat.messages.length === 0
+            ? {
+                ...chat,
+                messages: [{ role: "assistant" as const, content: INTRO_MESSAGE }],
+              }
+            : chat,
+        );
+        setChats(chatsWithIntroductions);
+        setActiveChatId(chatsWithIntroductions[0].id);
         return;
       }
     }
@@ -116,7 +126,7 @@ export default function Home() {
     const userMessage: ChatMessageType = { role: "user", content: message };
     const nextMessages = [...activeChat.messages, userMessage];
     const nextTitle =
-      activeChat.messages.length === 0
+      !activeChat.messages.some((item) => item.role === "user")
         ? message.slice(0, 54) + (message.length > 54 ? "..." : "")
         : activeChat.title;
 
