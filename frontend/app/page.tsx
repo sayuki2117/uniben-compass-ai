@@ -12,6 +12,15 @@ import type { ChatMessage as ChatMessageType, LocalChat } from "@/lib/types";
 
 const STORAGE_KEY = "uniben-compass-ai-chats";
 
+function removeSourceAppendix(content: string): string {
+  return content
+    .replace(
+      /\n{2,}Sources:\s*\n(?:\s*\d+\.\s+[^\n]+(?:\n|$))+\s*$/i,
+      "",
+    )
+    .trimEnd();
+}
+
 function createChat(): LocalChat {
   return {
     id: crypto.randomUUID(),
@@ -123,7 +132,7 @@ export default function Home() {
 
       const assistantMessage: ChatMessageType = {
         role: "assistant",
-        content: response.answer,
+        content: removeSourceAppendix(response.answer),
       };
 
       updateActiveChat(
@@ -205,7 +214,12 @@ export default function Home() {
                   }
                   className="scroll-mt-4"
                 >
-                  <ChatMessage message={message} />
+                  <ChatMessage
+                    message={{
+                      ...message,
+                      content: removeSourceAppendix(message.content),
+                    }}
+                  />
                 </div>
               ))
             )}
