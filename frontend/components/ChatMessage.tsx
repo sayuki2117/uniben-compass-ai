@@ -12,8 +12,8 @@ export function ChatMessage({ message }: Props) {
       <div
         className={`max-w-[88%] rounded-lg px-4 py-3 text-sm leading-6 shadow-sm ${
           isUser
-            ? "bg-emerald-700 text-white"
-            : "border border-slate-200 bg-white text-slate-800"
+            ? "border border-[#D4AF37]/60 bg-[#92049A] text-white"
+            : "border border-[#D4AF37]/35 bg-white text-slate-800"
         }`}
       >
         <p className="whitespace-pre-wrap">{message.content}</p>
@@ -21,4 +21,3 @@ export function ChatMessage({ message }: Props) {
     </div>
   );
 }
-

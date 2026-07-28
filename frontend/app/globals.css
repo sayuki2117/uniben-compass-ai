@@ -1,8 +1,11 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f7f8fb;
+  --background: #fbf7fc;
   --foreground: #121826;
+  --brand-purple: #92049a;
+  --brand-purple-dark: #65006c;
+  --brand-gold: #d4af37;
 }
 
 * {
@@ -25,4 +28,3 @@ select {
 textarea {
   resize: none;
 }
-

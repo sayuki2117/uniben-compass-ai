@@ -30,7 +30,7 @@ export function ChatSidebar({
       />
 
       <aside
-        className={`fixed inset-y-0 left-0 z-40 flex w-80 max-w-[86vw] flex-col border-r border-slate-200 bg-slate-950 text-white transition-transform lg:static lg:translate-x-0 ${
+        className={`fixed inset-y-0 left-0 z-40 flex w-80 max-w-[86vw] flex-col border-r border-[#D4AF37]/35 bg-[#3A083E] text-white transition-transform lg:static lg:translate-x-0 ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
@@ -54,7 +54,7 @@ export function ChatSidebar({
           <button
             type="button"
             onClick={onNewChat}
-            className="flex w-full items-center justify-center gap-2 rounded-md bg-emerald-600 px-4 py-3 text-sm font-semibold transition hover:bg-emerald-500"
+            className="flex w-full items-center justify-center gap-2 rounded-md bg-[#D4AF37] px-4 py-3 text-sm font-semibold text-[#3A083E] transition hover:bg-[#E5C451]"
           >
             <MessageSquarePlus size={18} />
             New Chat
@@ -69,7 +69,7 @@ export function ChatSidebar({
               onClick={() => onSelectChat(chat.id)}
               className={`w-full rounded-md px-3 py-3 text-left text-sm transition ${
                 activeChatId === chat.id
-                  ? "bg-white text-slate-950"
+                  ? "bg-[#D4AF37] text-[#3A083E]"
                   : "text-slate-300 hover:bg-white/10 hover:text-white"
               }`}
             >
@@ -84,4 +84,3 @@ export function ChatSidebar({
     </>
   );
 }
-

@@ -9,10 +9,10 @@ type Props = {
 
 export function Header({ onMenuClick }: Props) {
   return (
-    <header className="flex h-16 items-center justify-between border-b border-slate-200 bg-white px-4 lg:px-6">
+    <header className="flex h-16 items-center justify-between border-b border-[#D4AF37]/40 bg-white px-4 lg:px-6">
       <div className="flex items-center gap-3">
         <MobileMenuButton onClick={onMenuClick} />
-        <div className="grid h-10 w-10 place-items-center rounded-md bg-emerald-700 text-white">
+        <div className="grid h-10 w-10 place-items-center rounded-md bg-[#92049A] text-[#F4D35E] shadow-sm">
           <GraduationCap size={22} />
         </div>
         <div>
@@ -21,11 +21,10 @@ export function Header({ onMenuClick }: Props) {
         </div>
       </div>
 
-      <div className="hidden items-center gap-2 rounded-md border border-emerald-100 bg-emerald-50 px-3 py-2 text-xs font-medium text-emerald-800 sm:flex">
+      <div className="hidden items-center gap-2 rounded-md border border-[#D4AF37]/50 bg-[#FFF9E6] px-3 py-2 text-xs font-medium text-[#65006C] sm:flex">
         <ShieldCheck size={15} />
         Secure backend API
       </div>
     </header>
   );
 }
-
