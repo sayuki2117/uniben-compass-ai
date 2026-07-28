@@ -113,16 +113,9 @@ export default function Home() {
         audience,
       });
 
-      const sourceText =
-        response.sources.length > 0
-          ? `\n\nSources:\n${response.sources
-              .map((source, index) => `${index + 1}. ${source.title}${source.url ? ` - ${source.url}` : ""}`)
-              .join("\n")}`
-          : "";
-
       const assistantMessage: ChatMessageType = {
         role: "assistant",
-        content: `${response.answer}${sourceText}`,
+        content: response.answer,
       };
 
       updateActiveChat(
